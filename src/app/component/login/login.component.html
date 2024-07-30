@@ -1,0 +1,64 @@
+<div>
+	<div class="mt-100 me-5 ms-auto  mx-right" style="width: 55%; height: 10%; float:right; background-color: #ffffff; color: aliceblue;">
+		<mat-tab-group animationDuration="1500ms" mat-stretch-tabs mat-interacction-tabs="20ms" dynamicWidth headerPosition="below">
+			<mat-tab  label="Conoce" > 
+				<img  width="100%" height="400" src="../../../assets/images/f1.jpeg">	
+			</mat-tab>
+			<mat-tab label="interactua"> 
+				<img width="100%" height="400" src="../../../assets/images/f2.jpeg">
+			</mat-tab>
+			<mat-tab label="Construye"> 
+				<img width="100%" height="400" src="../../../assets/images/f3.jpeg">
+			</mat-tab>
+		  </mat-tab-group>
+	</div>
+		
+	<div class="mt-100 me-auto ms-5 pb-1 mx-right" style="width: 30%; float:left">
+		
+		<mat-card class="mat-elevation-z3">
+			
+			<mat-card-title class="text-center ps-3 pt-5 pe-3">Inicio de sesion</mat-card-title>
+	
+			<mat-card-content class="p-5">
+				<form [formGroup]="loginFormGroup" (ngSubmit)="handleLogin()">
+					<mat-form-field class="w-100 pb-2" appearance="outline">
+						<mat-label>Correo Electronico</mat-label>
+						<input type="text" matInput formControlName="email" placeholder="Ex. estudiante@example.com">
+						<mat-error *ngIf="email.hasError('required')">
+							El Correo Es <b>Obligatorio</b>
+						</mat-error>
+						<mat-error *ngIf="email.hasError('email') || email.hasError('serverError')">
+							Favor, ingresar un correo valido
+						</mat-error>
+					</mat-form-field>
+	
+					<mat-form-field class="w-100 pb-2" appearance="outline">
+						<mat-label>contraseña</mat-label>
+						<input type="password" matInput formControlName="password" placeholder="*************">
+						<mat-error *ngIf="password.hasError('required')">
+							La contraseña es <b>obligatoria</b>
+						</mat-error>
+						<mat-error *ngIf="password.hasError('minlength', 'maxlength')">
+							La contraseña debe tener entre 6 y 32 caracteres
+						</mat-error>
+						<mat-error *ngIf="password.hasError('serverError')">
+							La contraseña debe ser alfanumérica y debe incluir mayúsculas, minúsculas y caracteres especiales
+						</mat-error>
+					</mat-form-field>
+	
+					<a class="d-inline-block text-secondary text-decoration-none cursor-pointer mt-3" (click)="openForgotPasswordDialog($event)">
+						Olvidaste tu contraseña?
+					</a>
+	
+					<mat-card-actions align="end" style="margin-top: -35px; padding-right: 8px;">
+						<button mat-raised-button color="primary" type="submit">Vamos!</button>
+					</mat-card-actions>
+				</form>
+			</mat-card-content>
+	
+			<mat-card-footer *ngIf="submittingForm == true">
+				<mat-progress-bar mode="indeterminate"></mat-progress-bar>
+			</mat-card-footer>
+		</mat-card>
+	</div>
+</div>

@@ -1,0 +1,16 @@
+@import '~@angular/material/theming';
+// Plus Imports for efter components in your app.
+// Include the common styles for Angular Raterial,we include this here so that you only
+// have to loadasingle css file for Angular Material in your app.
+//Be sure that you only ever include this mixin once!
+@include mat-core();
+// Define the palettes for your thene using the Material Design palettes available in palette,scss
+//(teparted above).For each palette,you can optionally specifyadefault,tighter,and darker
+//hue.Available color palettes:https://material.io/design/color/
+$candy-app-primary:mat-palette($mat-gray,900,800);
+$candy-app-accent: mat-palette($mat-blue,900,800);
+// The warn palette is optional(defaults to red).
+$candy-app-warn:mat-palette($mat-red,A100,A200,A400,A700);
+// Create the there object(aSass map containing all of the polettes).
+$candy-app-theme:mat-light-theme($candy-app-primary,$candy-app-accent,$candy-app-warn);
+@include angular-material-theme($candy-app-theme);

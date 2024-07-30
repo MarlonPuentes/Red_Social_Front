@@ -1,0 +1,200 @@
+<div class="container">
+	<div class="row justify-content-center">
+		<div class="col-6" style="margin-top: 110px;">
+			<div class="bg-white mat-elevation-z3 rounded mb-5" style="background-color: #003366;">
+				<mat-tab-group mat-stretch-tabs dynamicHeight >
+					<mat-tab label="Actualizar informacion" style=" background-color: #003366; color: white;">
+						<div class="p-5">
+							<form [formGroup]="updateInfoFormGroup" (ngSubmit)="handleUpdateInfo()">
+								<mat-form-field class="w-100 pb-2" appearance="outline">
+									<mat-label>Cuentanos sobre ti</mat-label>
+									<textarea matInput formControlName="intro" placeholder="Say Something About You" cdkTextareaAutosize
+										cdkAutosizeMinRows="2" cdkAutosizeMaxRows="5">
+									</textarea>
+									<mat-error *ngIf="updateInfoIntro.hasError('maxlength') || updateInfoIntro.hasError('serverError')">
+										Ups! Suficiente ahi, maximo 100 caracteres
+									</mat-error>
+								</mat-form-field>
+
+								<mat-form-field class="w-100 pb-2" appearance="outline">
+									<mat-label>Nombre</mat-label>
+									<input type="text" matInput formControlName="firstName" placeholder="Ex. John">
+									<mat-error *ngIf="updateInfoFirstName.hasError('required') || updateInfoFirstName.hasError('maxlength') || updateInfoFirstName.hasError('serverError')">
+										Este campo es obligatorio pero no puedes usar mas de 64 caracteres.
+									</mat-error>
+								</mat-form-field>
+
+								<mat-form-field class="w-100 pb-2" appearance="outline">
+									<mat-label>Apellido</mat-label>
+									<input type="text" matInput formControlName="lastName" placeholder="Ex. Doe">
+									<mat-error *ngIf="updateInfoLastName.hasError('required') || updateInfoLastName.hasError('maxlength') || updateInfoLastName.hasError('serverError')">
+										Este campo es obligatorio pero no puedes usar mas de 64 caracteres.
+									</mat-error>
+								</mat-form-field>
+
+								<mat-form-field class="w-100 pb-2" appearance="outline">
+									<mat-label>Ciudad Natal</mat-label>
+									<input type="text" matInput formControlName="hometown" placeholder="Ex. Dhaka">
+									<mat-error *ngIf="updateInfoHometown.hasError('maxlength') || updateInfoHometown.hasError('serverError')">
+										No puedes usar mas de 128 caracteres.
+									</mat-error>
+								</mat-form-field>
+
+								<mat-form-field class="w-100 pb-2" appearance="outline">
+									<mat-label>Ciudad actual</mat-label>
+									<input type="text" matInput formControlName="currentCity" placeholder="Ex. Dhaka">
+									<mat-error *ngIf="updateInfoCurrentCity.hasError('maxlength') || updateInfoCurrentCity.hasError('serverError')">
+										No puedes usar mas 128 caracteres
+									</mat-error>
+								</mat-form-field>
+
+								<mat-form-field class="w-100 pb-2" appearance="outline">
+									<mat-label>Instituto/Universidad</mat-label>
+									<input type="text" matInput formControlName="eduInstitution" placeholder="Ex. University of XYZ">
+									<mat-error *ngIf="updateInfoEduInstitution.hasError('maxlength') || updateInfoEduInstitution.hasError('serverError')">
+										No puedes usar mas 128 caracteres
+									</mat-error>
+								</mat-form-field>
+
+								<mat-form-field class="w-100 pb-2" appearance="outline">
+									<mat-label>A que te dedicas?</mat-label>
+									<input type="text" matInput formControlName="workplace" placeholder="Ex. Software Engineer at ABC Inc.">
+									<mat-error *ngIf="updateInfoWorkplace.hasError('maxlength') || updateInfoWorkplace.hasError('serverError')">
+										No puedes usar mas 128 caracteres
+									</mat-error>
+								</mat-form-field>
+
+								<mat-form-field appearance="outline" class="d-block pb-2">
+									<mat-label>Cuando naciste?</mat-label>
+									<input formControlName="birthDate" matInput [matDatepicker]="birthDatePicker">
+									<mat-datepicker-toggle matSuffix [for]="birthDatePicker"></mat-datepicker-toggle>
+									<mat-datepicker touchUi #birthDatePicker></mat-datepicker>
+									<mat-error *ngIf="updateInfoBirthDate.hasError('serverError')">
+										Ingresa una fecha valida
+									</mat-error>
+								</mat-form-field>
+
+								<!--mat-form-field  appearance="outline" class="d-block pb-2">
+									<mat-label>Selecciona tu pais</mat-label>
+									<mat-select formControlName="countryName">
+										<mat-option *ngFor="let country of countryList" [value]="country.name">
+										{{ country.name }}
+										</mat-option>
+									</mat-select>
+									<mat-error *ngIf="updateInfoCountryName.hasError('serverError')">
+										Ingresa un pais valido
+									</mat-error>
+								</mat-form-field-->
+
+								<mat-radio-group formControlName="gender" class="d-block mb-2">
+									<mat-radio-button value="Hombre" class="me-3">Hombre</mat-radio-button>
+									<mat-radio-button value="Mujer" class="me-3">Mujer</mat-radio-button>
+									<mat-radio-button value="Otro">Otro</mat-radio-button>
+									<mat-error *ngIf="updateInfoGender.hasError('serverError')">
+										Ingresa un genero valido
+									</mat-error>
+								</mat-radio-group>
+
+								<span class="d-block mb-4 pb-2"></span>
+
+								<mat-card-actions>
+									<button mat-raised-button style=" background-color: #003366; color: white;" type="submit">Guardar cambios</button>
+								</mat-card-actions>
+							</form>
+						</div>
+
+						<mat-progress-bar mode="indeterminate" *ngIf="submittingForm"></mat-progress-bar>
+					</mat-tab>
+
+					<mat-tab label="Actualizar E-mail">
+						<div class="p-5">
+							<form [formGroup]="updateEmailFormGroup" (ngSubmit)="handleUpdateEmail()">
+								<mat-form-field class="w-100 pb-2" appearance="outline">
+									<mat-label>Nuevo Email</mat-label>
+									<input type="text" matInput formControlName="email" placeholder="Ex. John">
+									<mat-error *ngIf="updateEmailNewEmail.hasError('email') || updateEmailNewEmail.hasError('serverError')">
+										Ingresa un correo valido
+									</mat-error>
+									<mat-error *ngIf="updateEmailNewEmail.hasError('required') || updateEmailNewEmail.hasError('maxlength')">
+										Este campo es obligatoripo pero no puedes usar mas de 64 caracteres.
+									</mat-error>
+								</mat-form-field>
+
+								<mat-form-field class="w-100 pb-2" appearance="outline">
+									<mat-label>Contraseña*</mat-label>
+									<input type="password" matInput formControlName="password" placeholder="*************">
+									<mat-error *ngIf="updatePasswordNewPassword.hasError('required')">
+										La contraseña es <b>obligatoria</b>
+									</mat-error>
+									<mat-error *ngIf="updatePasswordNewPassword.hasError('minlength', 'maxlength')">
+										La contraseña debe tener entre 6 y 32 caracteres.
+									</mat-error>
+									<mat-error *ngIf="updatePasswordNewPassword.hasError('serverError')">
+										La contraseña debe ser alfanumerica y debe incluir mayusculas, minusculas y caracteres especiales.
+									</mat-error>
+								</mat-form-field>
+
+								<mat-card-actions>
+									<button mat-raised-button style=" background-color: #003366; color: white;" type="submit">Cambiar E-mail</button>
+								</mat-card-actions>
+							</form>
+						</div>
+
+						<mat-progress-bar mode="indeterminate" *ngIf="submittingForm"></mat-progress-bar>
+					</mat-tab>
+
+					<mat-tab label="Cambiar Contraseña">
+						<div class="p-5">
+							<form [formGroup]="updatePasswordFormGroup" (ngSubmit)="handleUpdatePassword()">
+								<mat-form-field class="w-100 pb-2" appearance="outline">
+									<mat-label>Nueva Contraseña</mat-label>
+									<input type="password" matInput formControlName="password" placeholder="*************">
+									<mat-error *ngIf="updatePasswordNewPassword.hasError('required')">
+										La contraseña es <b>Obligatoria</b>
+									</mat-error>
+									<mat-error *ngIf="updatePasswordNewPassword.hasError('minlength', 'maxlength')">
+										La contraseña debe tener entre 6 y 32 caracteres.
+									</mat-error>
+									<mat-error *ngIf="updatePasswordNewPassword.hasError('serverError')">
+										La contraseña debe ser alfanumerica y debe incluir mayusculas, minusculas y caracteres especiales.
+									</mat-error>
+								</mat-form-field>
+				
+								<mat-form-field class="w-100 pb-2" appearance="outline">
+									<mat-label>Repite la nueva contraseña </mat-label>
+									<input type="password" matInput formControlName="passwordRepeat" placeholder="*************" [errorStateMatcher]="repeatPasswordMatcher">
+									<mat-error *ngIf="updatePasswordPasswordRepeat.hasError('required')">
+										La Configuracion de la contraseña es <b>Obligatoria</b>
+									</mat-error>
+									<mat-error *ngIf="updatePasswordFormGroup.hasError('passwordMissMatch') || updatePasswordPasswordRepeat.hasError('serverError')">
+										Las contraseñas no coinciden
+									</mat-error>
+								</mat-form-field>
+
+								<mat-form-field class="w-100 pb-3" appearance="outline">
+									<mat-label>Contraseña antigua</mat-label>
+									<input type="password" matInput formControlName="oldPassword" placeholder="*************">
+									<mat-error *ngIf="updatePasswordOldPassword.hasError('required')">
+										La contraseña antigua es <b>Obligatoria</b>
+									</mat-error>
+									<mat-error *ngIf="updatePasswordOldPassword.hasError('minlength', 'maxlength')">
+										La contraseña debe tener entre 6 y 32 caracteres.
+									</mat-error>
+									<mat-error *ngIf="updatePasswordOldPassword.hasError('serverError')">
+										La contraseña debe ser alfanumerica y debe incluir mayusculas, minusculas y caracteres especiales.
+									</mat-error>
+								</mat-form-field>
+
+								<mat-card-actions>
+									<button mat-raised-button style=" background-color: #003366; color: white;" type="submit">Cambiar contraseña</button>
+								</mat-card-actions>
+							</form>
+						</div>
+
+						<mat-progress-bar mode="indeterminate" *ngIf="submittingForm"></mat-progress-bar>
+					</mat-tab>
+				</mat-tab-group>
+			</div>
+		</div>
+	</div>
+</div>
